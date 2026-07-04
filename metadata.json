@@ -1,0 +1,6 @@
+{
+  "name": "სუფრის სიმულატორი",
+  "description": "ქართული სუფრისა და თამადობის სახალისო სიმულატორი",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
