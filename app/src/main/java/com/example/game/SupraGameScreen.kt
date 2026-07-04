@@ -50,34 +50,36 @@ val FoodColor = Color(0xFF0061A4)     // Material 3 Blue for food/fullness progr
 fun SupraGameApp(viewModel: SupraGameViewModel) {
     val state by viewModel.state.collectAsState()
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = TavernDark
-    ) {
-        AnimatedContent(
-            targetState = state.currentScreen,
-            transitionSpec = {
-                fadeIn(animationSpec = spring()) togetherWith fadeOut(animationSpec = spring())
-            },
-            label = "ScreenTransition"
-        ) { screen ->
-            when (screen) {
-                GameScreen.HOME -> HomeScreen(
-                    onStart = { viewModel.changeScreen(GameScreen.CHARACTER_SELECTION) }
-                )
-                GameScreen.CHARACTER_SELECTION -> CharacterSelectionScreen(
-                    characters = viewModel.characters,
-                    onSelect = { viewModel.selectCharacter(it) },
-                    onBack = { viewModel.changeScreen(GameScreen.HOME) }
-                )
-                GameScreen.GAMEPLAY -> GameplayScreen(
-                    state = state,
-                    viewModel = viewModel
-                )
-                GameScreen.GAME_OVER -> GameOverScreen(
-                    state = state,
-                    onRestart = { viewModel.restartGame() }
-                )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = TavernDark
+        ) {
+            AnimatedContent(
+                targetState = state.currentScreen,
+                transitionSpec = {
+                    fadeIn(animationSpec = spring()) togetherWith fadeOut(animationSpec = spring())
+                },
+                label = "ScreenTransition"
+            ) { screen ->
+                when (screen) {
+                    GameScreen.HOME -> HomeScreen(
+                        onStart = { viewModel.changeScreen(GameScreen.CHARACTER_SELECTION) }
+                    )
+                    GameScreen.CHARACTER_SELECTION -> CharacterSelectionScreen(
+                        characters = viewModel.characters,
+                        onSelect = { viewModel.selectCharacter(it) },
+                        onBack = { viewModel.changeScreen(GameScreen.HOME) }
+                    )
+                    GameScreen.GAMEPLAY -> GameplayScreen(
+                        state = state,
+                        viewModel = viewModel
+                    )
+                    GameScreen.GAME_OVER -> GameOverScreen(
+                        state = state,
+                        onRestart = { viewModel.restartGame() }
+                    )
+                }
             }
         }
     }
